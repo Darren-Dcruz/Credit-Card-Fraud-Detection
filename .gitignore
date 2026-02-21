@@ -1,0 +1,39 @@
+ 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+
+# Jupyter / Data science
+*.ipynb_checkpoints/
+*.csv
+*.zip
+*.rar
+*.7z
+data/
+Data/
+*.xlsx
+*.xls
+
+# R / RStudio
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user/
+
+# OneDrive / Windows junk
+~$*
+desktop.ini
+Thumbs.db
+
+# Large files you don't want to upload
+# *.parquet
+# *. feather
+# models/
