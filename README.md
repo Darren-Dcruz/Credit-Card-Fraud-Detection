@@ -12,6 +12,13 @@ The goal of this project is to identify fraudulent transactions from a dataset o
 - **Dataset**: [Kaggle Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 - **Scale**: 284,807 rows × 31 columns
 
+
+## The Team 
+
+[Darren Samuel Dcruz](https://github.com/Darren-Dcruz)
+[Irene Ajay K](https://github.com/irene-ajay)
+[Joel Jacob Roji](https://github.com/JoelJacobRoji)
+
 ## 🚀 Methodology
 
 ### Phase 1: Data Understanding & Cleaning (R)
@@ -61,4 +68,4 @@ pip install numpy pandas scikit-learn seaborn matplotlib
 - `creditcard.csv`: (Not included) Raw transaction data.
 
 ---
-*Created as part of a Finance Data Science project.*
+*Created as part of a Introduction to Data Science project.*
