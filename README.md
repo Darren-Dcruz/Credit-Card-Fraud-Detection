@@ -15,9 +15,9 @@ The goal of this project is to identify fraudulent transactions from a dataset o
 
 ## The Team 
 
-[Darren Samuel Dcruz](https://github.com/Darren-Dcruz)
-[Irene Ajay K](https://github.com/irene-ajay)
-[Joel Jacob Roji](https://github.com/JoelJacobRoji)
+- [Darren Samuel Dcruz](https://github.com/Darren-Dcruz)
+- [Irene Ajay K](https://github.com/irene-ajay)
+- [Joel Jacob Roji](https://github.com/JoelJacobRoji)
 
 ## 🚀 Methodology
 
