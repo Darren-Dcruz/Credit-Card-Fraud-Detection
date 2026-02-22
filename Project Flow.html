@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Project Flow Diagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --border: #1e293b;
+    --p1: #3b82f6;
+    --p2: #8b5cf6;
+    --p3: #10b981;
+    --p4: #f59e0b;
+    --text: #f1f5f9;
+    --muted: #64748b;
+    --connector: #1e40af;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .header .badge {
+    display: inline-block;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: #93c5fd;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .header h1 {
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #f1f5f9 30%, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* Flow container */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  /* Phase card */
+  .phase {
+    width: 100%;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px 32px;
+    border: 1px solid var(--border);
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .phase.visible {
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .phase:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .phase-1 { border-top: 3px solid var(--p1); animation-delay: 0.1s; }
+  .phase-2 { border-top: 3px solid var(--p2); animation-delay: 0.3s; }
+  .phase-3 { border-top: 3px solid var(--p3); animation-delay: 0.5s; }
+  .phase-4 { border-top: 3px solid var(--p4); animation-delay: 0.7s; }
+
+  .phase-1:hover { box-shadow: 0 20px 60px rgba(59,130,246,0.15); }
+  .phase-2:hover { box-shadow: 0 20px 60px rgba(139,92,246,0.15); }
+  .phase-3:hover { box-shadow: 0 20px 60px rgba(16,185,129,0.15); }
+  .phase-4:hover { box-shadow: 0 20px 60px rgba(245,158,11,0.15); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .phase-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .phase-1 .phase-number { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+  .phase-2 .phase-number { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+  .phase-3 .phase-number { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+  .phase-4 .phase-number { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+
+  .phase-title-group h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 2px;
+  }
+
+  .phase-title-group .tool-tag {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .phase-1 .tool-tag { color: #60a5fa; }
+  .phase-2 .tool-tag { color: #a78bfa; }
+  .phase-3 .tool-tag { color: #34d399; }
+  .phase-4 .tool-tag { color: #fbbf24; }
+
+  /* Steps grid */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+  }
+
+  .step {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: background 0.2s;
+  }
+
+  .step:hover { background: rgba(255,255,255,0.06); }
+
+  .step-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text {
+    font-size: 13px;
+    color: #cbd5e1;
+    line-height: 1.45;
+  }
+
+  .step-text strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 2px;
+  }
+
+  /* Output pill */
+  .output-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .output-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+  }
+
+  .output-pill {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .phase-1 .output-pill { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+  .phase-2 .output-pill { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
+  .phase-3 .output-pill { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .phase-4 .output-pill { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+
+  /* Connector arrow */
+  .connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 4px 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .connector.visible { opacity: 1; }
+
+  .connector-line {
+    width: 2px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--border), rgba(99,102,241,0.5));
+  }
+
+  .connector-arrow {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid rgba(99,102,241,0.5);
+  }
+
+  .connector-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.2);
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+  /* Dataset box */
+  .dataset-box {
+    width: 100%;
+    background: rgba(30,41,59,0.6);
+    border: 1px dashed rgba(100,116,139,0.4);
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 0;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0s forwards;
+  }
+
+  .dataset-icon { font-size: 28px; }
+
+  .dataset-info h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .dataset-info p {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Final output */
+  .final-output {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(251,191,36,0.04));
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 16px;
+    padding: 24px 32px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.9s forwards;
+  }
+
+  .final-output h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fbbf24;
+    margin-bottom: 8px;
+  }
+
+  .final-output p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .final-badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .final-badge {
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.2);
+    color: #fbbf24;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .phase { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">Credit Card Fraud Detection · Finance Domain</div>
+    <h1>Project Flow Diagram</h1>
+    <p>End-to-end pipeline across 4 phases using R, Python & Tableau</p>
+  </div>
+
+  <div class="flow">
+
+    <!-- Dataset Input -->
+    <div class="dataset-box">
+      <div class="dataset-icon">🗃️</div>
+      <div class="dataset-info">
+        <h3>Input Dataset — creditcard.csv</h3>
+        <p>Source: Kaggle · ULB · 284,807 rows × 31 columns · Finance Domain</p>
+      </div>
+    </div>
+
+    <!-- Connector 0 -->
+    <div class="connector visible">
+      <div class="connector-line"></div>
+      <div class="connector-arrow"></div>
+      <div class="connector-label">raw data</div>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase phase-1 visible">
+      <div class="phase-header">
+        <span class="phase-number">Phase 01</span>
+        <div class="phase-title-group">
+          <h2>Data Understanding & Cleaning</h2>
+          <span class="tool-tag">// Tool: R Language</span>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-icon">📥</span>
+          <div class="step-text"><strong>Load Dataset</strong>read.csv() into R environment</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🔍</span>
+          <div class="step-text"><strong>Explore Data</strong>head(), str(), dim(), summary()</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🩹</span>
+          <div class="step-text"><strong>Handle Missing</strong>Impute with median via mutate()</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🗑️</span>
+          <div class="step-text"><strong>Remove Duplicates</strong>distinct() to clean records</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">📊</span>
+          <div class="step-text"><strong>Summary Stats</strong>skim() — mean, sd, histograms</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">⚖️</span>
+          <div class="step-text"><strong>Normalize</strong>scale() on Amount & Time columns</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">✂️</span>
+          <div class="step-text"><strong>80/20 Split</strong>Train & validation sampling</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">💾</span>
+          <div class="step-text"><strong>Export CSVs</strong>cleaned · train · validation files</div>
+        </div>
+      </div>
+      <div class="output-row">
+        <span class="output-label">Output →</span>
+        <span class="output-pill">creditcard_cleaned.csv</span>
+        <span class="output-pill">creditcard_train.csv</span>
+        <span class="output-pill">creditcard_validation.csv</span>
+      </div>
+    </div>
+
+    <!-- Connector 1 -->
+    <div class="connector visible">
+      <div class="connector-line"></div>
+      <div class="connector-arrow"></div>
+      <div class="connector-label">cleaned data</div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase phase-2 visible">
+      <div class="phase-header">
+        <span class="phase-number">Phase 02</span>
+        <div class="phase-title-group">
+          <h2>Data Analysis & Modeling</h2>
+          <span class="tool-tag">// Tools: R + Python</span>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-icon">📈</span>
+          <div class="step-text"><strong>EDA (R)</strong>Class distribution, amount plots</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🔗</span>
+          <div class="step-text"><strong>Correlation (R)</strong>corrplot heatmap of all features</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🎯</span>
+          <div class="step-text"><strong>Top Features</strong>Ranked by correlation with Class</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🤖</span>
+          <div class="step-text"><strong>Logistic Regression</strong>glm() — fraud prediction model</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">📉</span>
+          <div class="step-text"><strong>ROC + AUC (R)</strong>pROC — model performance curve</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🧩</span>
+          <div class="step-text"><strong>EDA (Python)</strong>seaborn heatmap + distributions</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🔵</span>
+          <div class="step-text"><strong>K-Means (Python)</strong>Elbow method → optimal K</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">✅</span>
+          <div class="step-text"><strong>Silhouette Score</strong>Cluster quality validation</div>
+        </div>
+      </div>
+      <div class="output-row">
+        <span class="output-label">Output →</span>
+        <span class="output-pill">confusion_matrix.csv</span>
+        <span class="output-pill">AUC Score</span>
+        <span class="output-pill">Cluster Labels</span>
+      </div>
+    </div>
+
+    <!-- Connector 2 -->
+    <div class="connector visible">
+      <div class="connector-line"></div>
+      <div class="connector-arrow"></div>
+      <div class="connector-label">modeled data</div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase phase-3 visible">
+      <div class="phase-header">
+        <span class="phase-number">Phase 03</span>
+        <div class="phase-title-group">
+          <h2>Python Implementation</h2>
+          <span class="tool-tag">// Tools: NumPy · Pandas · Scikit-Learn</span>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-icon">🔢</span>
+          <div class="step-text"><strong>NumPy Stats</strong>mean, std, variance, percentiles</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🐼</span>
+          <div class="step-text"><strong>Pandas EDA</strong>groupby, describe, feature engineering</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🏷️</span>
+          <div class="step-text"><strong>Feature Flag</strong>High-Value transaction labeling</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">📐</span>
+          <div class="step-text"><strong>PCA Applied</strong>Reduce 30 features → n components</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">📊</span>
+          <div class="step-text"><strong>95% Variance</strong>Optimal component selection</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🗺️</span>
+          <div class="step-text"><strong>2D Projection</strong>PC1 vs PC2 scatter plot</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🔵</span>
+          <div class="step-text"><strong>K-Means on PCA</strong>Cluster on reduced dimensions</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🚨</span>
+          <div class="step-text"><strong>Fraud/Cluster</strong>Fraud rate % per cluster analysis</div>
+        </div>
+      </div>
+      <div class="output-row">
+        <span class="output-label">Output →</span>
+        <span class="output-pill">creditcard_phase3_final.csv</span>
+        <span class="output-pill">PCA plots</span>
+        <span class="output-pill">Cluster plots</span>
+      </div>
+    </div>
+
+    <!-- Connector 3 -->
+    <div class="connector visible">
+      <div class="connector-line"></div>
+      <div class="connector-arrow"></div>
+      <div class="connector-label">final dataset</div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase phase-4 visible">
+      <div class="phase-header">
+        <span class="phase-number">Phase 04</span>
+        <div class="phase-title-group">
+          <h2>Visualization & Dashboard</h2>
+          <span class="tool-tag">// Tool: Tableau Public / Desktop</span>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-icon">📊</span>
+          <div class="step-text"><strong>Chart 1</strong>Fraud vs Normal — Bar Chart</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">💰</span>
+          <div class="step-text"><strong>Chart 2</strong>Avg Amount by Cluster — Bar</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🚨</span>
+          <div class="step-text"><strong>Chart 3</strong>Fraud Rate % per Cluster</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">📉</span>
+          <div class="step-text"><strong>Chart 4</strong>Amount Distribution — Histogram</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🥧</span>
+          <div class="step-text"><strong>Chart 5</strong>Cluster Sizes — Pie Chart</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🖱️</span>
+          <div class="step-text"><strong>Filter Action</strong>Click-through interactivity</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🎛️</span>
+          <div class="step-text"><strong>Dropdown Filter</strong>Cluster selector control</div>
+        </div>
+        <div class="step">
+          <span class="step-icon">🖥️</span>
+          <div class="step-text"><strong>Dashboard</strong>5 charts in 1 interactive view</div>
+        </div>
+      </div>
+      <div class="output-row">
+        <span class="output-label">Output →</span>
+        <span class="output-pill">Interactive Dashboard</span>
+        <span class="output-pill">5 Charts</span>
+        <span class="output-pill">Published Report</span>
+      </div>
+    </div>
+
+    <!-- Connector 4 -->
+    <div class="connector visible">
+      <div class="connector-line"></div>
+      <div class="connector-arrow"></div>
+    </div>
+
+    <!-- Final Output -->
+    <div class="final-output">
+      <h3>🎓 Project Complete</h3>
+      <p>End-to-end fraud detection pipeline from raw data to interactive insights</p>
+      <div class="final-badges">
+        <span class="final-badge">R — Cleaning & Modeling</span>
+        <span class="final-badge">Python — PCA + Clustering</span>
+        <span class="final-badge">Tableau — Dashboard</span>
+        <span class="final-badge">Finance Domain</span>
+        <span class="final-badge">284,807 Records</span>
+      </div>
+    </div>
+
+  </div><!-- end flow -->
+</div><!-- end wrapper -->
+</body>
+</html>
