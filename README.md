@@ -29,11 +29,25 @@ Primary tool: **R (tidyverse, skimr, janitor)**
 - Feature scaling for 'Time' and 'Amount' (normalizing raw data for modeling).
 - 80/20 train-test split for validation.
 
+#### Outputs
+![Phase 1 Output 1](images/Picture1.png)
+![Phase 1 Output 2](images/Picture2.png)
+![Phase 1 Output 3](images/Picture3.png)
+![Phase 1 Output 4](images/Picture4.png)
+![Phase 1 Output 5](images/Picture5.png)
+
 ### Phase 2: EDA & Initial Modeling (R + Python)
 - Correlation analysis to identify top predictors of fraud.
 - Implementation of **Logistic Regression** in R for baseline fraud prediction.
 - Performance evaluation using ROC and AUC scores.
 - Introduction of Python-based EDA using Seaborn and initial K-Means elbow method testing.
+
+#### Outputs
+![Phase 2 Output 1](images/Picture6.png)
+![Phase 2 Output 2](images/Picture7.png)
+![Phase 2 Output 3](images/Picture8.png)
+![Phase 2 Output 4](images/Picture9.png)
+![Phase 2 Output 5](images/Picture10.png)
 
 ### Phase 3: Python Implementation & Dimensionality Reduction
 Primary tool: **Python (NumPy, Pandas, Scikit-Learn)**
@@ -42,11 +56,26 @@ Primary tool: **Python (NumPy, Pandas, Scikit-Learn)**
 - **Unsupervised Learning**: K-Means clustering applied to PCA-reduced dimensions.
 - Fraud rate analysis per cluster to identify high-risk segments.
 
+#### Outputs
+![Phase 3 Output 1](images/Picture11.png)
+![Phase 3 Output 2](images/Picture12.png)
+![Phase 3 Output 3](images/Picture13.png)
+![Phase 3 Output 4](images/Picture14.png)
+![Phase 3 Output 5](images/Picture15.png)
+
 ### Phase 4: Visualization & Dashboarding (Tableau)
 Primary tool: **Tableau**
 - Construction of a multi-panel interactive dashboard.
 - Features: Fraud vs. Normal distribution, Average Amount by Cluster, and Fraud Rate % by Cluster.
 - Dynamic filters for cluster-based exploration of transaction patterns.
+
+#### Outputs
+![Phase 4 Output 1](images/Picture16.png)
+![Phase 4 Output 2](images/Picture17.png)
+![Phase 4 Output 3](images/Picture18.png)
+![Phase 4 Output 4](images/Picture19.png)
+![Phase 4 Output 5](images/Picture20.png)
+
 
 ## 🛠️ Installation & Requirements
 
